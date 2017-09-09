@@ -1,2 +1,2 @@
-# PriceWed
-A web for coin priice
+# PriceWeb
+A web for coin price
