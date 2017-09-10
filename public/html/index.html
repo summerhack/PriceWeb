@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>coin price</title>
+        <link href="https://cdn.bootcss.com/zui/1.7.0/css/zui.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/zui/1.7.0/lib/datatable/zui.datatable.min.css" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/zui/1.7.0/js/zui.min.js"></script>
+        <script src="https://cdn.bootcss.com/zui/1.7.0/lib/datatable/zui.datatable.min.js"></script>
+    </head>
+    <body>
+        <div class="page-header">
+            <h2>国内外行情表</h2>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="alert alert-info-inverse with-icon">
+                <i class="icon-info-sign"></i>
+                <div class="content">
+                    <span>当前 USD : RMB </span>
+                    <strong class="text-danger">6.29</strong>
+                    <span class="pull-right">更新时间:<strong>2017/9/10 12:30:34</strong></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    计算器
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-4 col-sm-6 col-xs-6">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <h3>公式1:  (a * 汇率 - b) / b</h3>
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="fx1a" class="col-md-3 col-sm-3">a</label>
+                                        <div class="col-md-6 col-sm-9">
+                                        <input type="text" class="form-control" id="fx1a" placeholder="USD">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fx1b" class="col-md-3 col-sm-3">b</label>
+                                        <div class="col-md-6 col-sm-9">
+                                        <input type="text" class="form-control" id="fx1b" placeholder="RMB">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fx1c" class="col-md-3 col-sm-3">c=</label>
+                                        <div class="col-md-6 col-sm-9">
+                                        <div id="fx1c"><span>答案</span>%</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-6">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <h3>公式2: 待定</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <!-- HTML 代码 -->
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>币种</th>
+                        <th>BITFINEX</th>
+                        <th>P网</th>
+                        <th>B网</th> 
+                        <th>xbTce</th>
+                        <th>火币</th>
+                        <th>比特时代</th>
+                        <th>聚币</th>
+                        <th>比特儿</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>...</tr>
+                    <tr>...</tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
