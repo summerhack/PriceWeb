@@ -40,27 +40,42 @@ var sendmy ='';
 //   });
 // })
 var coinData =function(callback){
+  //汇率查询
+  function huilv(){
+    return new Promise(function(resolve,reject){
+      http.get('http://api.k780.com:88/?app=finance.rate&scur=USD&tcur=CNY&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4',(res)=>{
+        res.setEncoding('utf8');
+        let rawData = '';
+        res.on('data', (chunk) => { rawData += chunk; });
+        res.on('end', () => {
+          const parsedData = JSON.parse(rawData);
+          const rate = parsedData.result.rate;
+          const update = parsedData.result.update;
+          resolve(rate,update)
+        });
+      })
+    })
+  }
+  //bitfinex 基准
+  function getFinex(rate,update){
+    return new Promise(function() {
+      http.get('https://api.bitfinex.com/v2/tickers?symbols=tBTCUSD,tLTCUSD,tETHUSD,tETCUSD,tZECUSD,tXMRUSD,tDASHUSD,tIOTAUSD,tEOSUSD,tOMGUSD,tBCHUSD,tRRTUSD,tBCCUSD,tBCUUSD,tXRPUSD,tSANUSD,tNEOUSD',(res)=>{
+        res.setEncoding('utf8');
+        let rawData = '';
+        res.on('data',(chunk) => {rawData += chunk;});
+        res.on('end',() =>{
+          const parsedData = JSON.parse(rawData);
+          //数据处理
+          let outdata = {
+            'BTC':{'CNY':'','USD':parsedData[0][7],'Percent'}
+          }
+          resolve(rate,update)
+        })
+      })
+    })
+  }
   //比特儿api
-  // let getBiter=function(){
-  //   return new Promise(function (resolve, reject) {
-  //     const biterOpts = {
-  //       hostname: 'data.bter.com',
-  //       path: '/api2/1/marketlist',
-  //       method: 'GET'
-  //     }
-  //     http.request(biterOpts, function(res) {
-  //       resolve(res)
-  //       console.log(res)
-  //       callback(res);
-  //     })
-  //   })
-  // }
-  // var p = new Promise(function (resolve, reject) {
-  //     resolve();
-  // });
-  // p.then(getBiter)
-  // 0.5秒后返回input*input的计算结果:
-  function multiply() {
+  function getBiter(rate,update) {
     return new Promise(function (resolve, reject) {
       http.get('http://data.bter.com/api2/1/marketlist',(res) =>{
         res.setEncoding('utf8');
@@ -68,11 +83,10 @@ var coinData =function(callback){
         res.on('data', (chunk) => { rawData += chunk; });
         res.on('end', () => {
             const parsedData = JSON.parse(rawData);
-            sendmy = JSON.stringify(parsedData);
             console.log(parsedData);
+            resolve(rate,update,sendmy)
         });
       })
-      resolve(sendmy);
     });
   }
   // 0.5秒后返回input+input的计算结果:
@@ -95,7 +109,7 @@ var coinData =function(callback){
   var p = new Promise(function (resolve, reject) {
     resolve();
   });
-  p.then(multiply)
+  p.then(huilv)
   .then(function (result) {
     callback(result);
   });
