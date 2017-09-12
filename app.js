@@ -67,7 +67,7 @@ var coinData =function(callback){
           const parsedData = JSON.parse(rawData);
           //数据处理
           let outdata = {
-            'BTC':{'CNY':'','USD':parsedData[0][7],'Percent'}
+            'BTC':{'CNY':'','USD':parsedData[0][7],'Percent':''}
           }
           resolve(rate,update)
         })
