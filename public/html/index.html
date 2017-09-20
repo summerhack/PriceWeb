@@ -21,7 +21,7 @@
                 <i class="icon-info-sign"></i>
                 <div class="content">
                     <span>当前 USD : RMB </span>
-                    <strong class="text-danger">6.29</strong>
+                    <strong class="text-danger" id="rate">6.29</strong>
                     <span class="pull-right">更新时间:<strong>2017/9/10 12:30:34</strong></span>
                 </div>
             </div>
@@ -50,9 +50,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="fx1b" class="col-md-3 col-sm-3"></label>
+                                        <div class="col-md-6 col-sm-9">
+                                                <button class="btn" id="cal" type="button">计算</button>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-group">
                                         <label for="fx1c" class="col-md-3 col-sm-3">c=</label>
                                         <div class="col-md-6 col-sm-9">
-                                        <div id="fx1c"><span>答案</span>%</div>
+                                        <div><span id="fx1c">答案</span>%</div>
                                         </div>
                                     </div>
                                 </form>
@@ -93,10 +100,20 @@
         </div>
         <script>
             $(function(){
+                var rate;
                 var socket = io.connect('http://localhost');
                 socket.on('send data', function(msg){
-                    console.log(msg)
+                    console.log(msg);
+                    $('#rate').text(msg)
                 });
+                $('#cal').click(function(){
+                    var a = parseFloat($('#fx1a').val());
+                    var b = parseFloat($('#fx1b').val());
+                    var rate = parseFloat($('#rate').text());
+                    var c =(a*rate-b)/b;
+                    $('#fx1c').text(c)  ;
+                    return 0;
+                })
             })
         </script>
     </body>

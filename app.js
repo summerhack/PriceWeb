@@ -43,15 +43,20 @@ var coinData =function(callback){
   //汇率查询
   function huilv(){
     return new Promise(function(resolve,reject){
-      http.get('http://api.k780.com:88/?app=finance.rate&scur=USD&tcur=CNY&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4',(res)=>{
+      console.log('start')
+      http.get('http://api.k780.com:88/?app=finance.rate&scur=USD&tcur=CNY&appkey=28391&sign=30139467983e695395494daabd41e74e',(res)=>{
         res.setEncoding('utf8');
         let rawData = '';
         res.on('data', (chunk) => { rawData += chunk; });
         res.on('end', () => {
           const parsedData = JSON.parse(rawData);
-          const rate = parsedData.result.rate;
-          const update = parsedData.result.update;
-          resolve(rate,update)
+          console.log('first'+rawData);
+          if(parsedData.result && parsedData.result.rate){
+            const rate = parsedData.result.rate || "";
+            const update = parsedData.result.update;
+            console.log(rate)
+            resolve(rate,update)
+          }
         });
       })
     })
@@ -115,11 +120,14 @@ var coinData =function(callback){
   });
 }
 io.on('connection', function (socket) {
+  coinData(function (msg) {
+    socket.volatile.emit('send data', msg);
+  });
   var tweets = setInterval(function () {
     coinData(function (msg) {
       socket.volatile.emit('send data', msg);
     });
-  }, 2000);
+  }, 120000);
 
   socket.on('disconnect', function () {
     clearInterval(tweets);
